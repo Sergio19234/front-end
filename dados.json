@@ -1,0 +1,60 @@
+{
+  "tarefas": [
+    {
+      "id": 1,
+      "titulo": "Elaborar Diagrama de Classes UML",
+      "status": "a-fazer",
+      "prioridade": "alta",
+      "prazo": "2026-09-20"
+    },
+    {
+      "id": 2,
+      "titulo": "Revisão Bibliográfica sobre IAs Generativas",
+      "status": "a-fazer",
+      "prioridade": "media",
+      "prazo": "2026-09-25"
+    },
+    {
+      "id": 3,
+      "titulo": "Estruturação Semântica do HTML",
+      "status": "em-andamento",
+      "prioridade": "alta",
+      "prazo": "2026-09-15"
+    },
+    {
+      "id": 4,
+      "titulo": "Normalização de Banco de Dados até 3FN",
+      "status": "em-andamento",
+      "prioridade": "media",
+      "prazo": "2026-09-18"
+    },
+    {
+      "id": 5,
+      "titulo": "Validação de Protocolos de Rede no Wireshark",
+      "status": "em-revisao",
+      "prioridade": "baixa",
+      "prazo": "2026-09-12"
+    },
+    {
+      "id": 6,
+      "titulo": "Testes Unitários da API REST em Node.js",
+      "status": "em-revisao",
+      "prioridade": "alta",
+      "prazo": "2026-09-19"
+    },
+    {
+      "id": 7,
+      "titulo": "Configuração Inicial do Repositório Git",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "prazo": "2026-09-05"
+    },
+    {
+      "id": 8,
+      "titulo": "Pesquisa de Requisitos com Usuários",
+      "status": "concluida",
+      "prioridade": "media",
+      "prazo": "2026-09-08"
+    }
+  ]
+}
