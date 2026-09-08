@@ -1,15 +1,17 @@
 export async function carregarTarefas() {
-  const resposta = await fetch("../dados.json");
+  const resposta = await fetch("dados.json");
 
   if (!resposta.ok) {
-    throw new Error(`Erro HTTP: ${resposta.status}`);
+    const erro = new Error(`Erro HTTP: ${resposta.status}`);
+    erro.name = "HttpError";
+    throw erro;
   }
 
   const dados = await resposta.json();
 
   if (!dados || !Array.isArray(dados.tarefas)) {
-    const erro = new Error("Formato de dados inválido.");
-    erro.name = "TypeError";
+    const erro = new Error("Formato inválido dos dados.");
+    erro.name = "FormatoError";
     throw erro;
   }
 
