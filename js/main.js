@@ -4,36 +4,67 @@ import { renderizarEstado } from "./estados.js";
 async function iniciarAplicacao() {
   renderizarEstado("carregando");
 
-  try {
-    const tarefas = await carregarTarefas();
+  let tarefas;
 
-    if (tarefas.length === 0) {
-      renderizarEstado("vazio");
+  try {
+    tarefas = await carregarTarefas();
+
+  } catch (erro) {
+
+    if (erro.name === "TypeError") {
+
+      renderizarEstado(
+        "erro",
+        "Não foi possível carregar as tarefas. Verifique o servidor local e a conexão."
+      );
+
       return;
     }
 
-    renderizarEstado("sucesso", tarefas);
+    if (erro.name === "SyntaxError") {
 
-  } catch (erro) {
-    if (erro.name === "TypeError") {
       renderizarEstado(
         "erro",
-        "Não foi possível conectar ao servidor. Verifique sua conexão."
+        "Não foi possível carregar as tarefas porque o arquivo JSON possui um formato inválido."
       );
 
-    } else if (erro.name === "SyntaxError") {
-      renderizarEstado(
-        "erro",
-        "Não foi possível carregar as tarefas porque o arquivo de dados está com formato inválido."
-      );
-
-    } else {
-      renderizarEstado(
-        "erro",
-        "Não foi possível carregar as tarefas. Tente novamente mais tarde."
-      );
+      return;
     }
+
+    if (erro.name === "FormatoError") {
+
+      renderizarEstado(
+        "erro",
+        "Não foi possível carregar as tarefas porque os dados do JSON estão em formato incorreto."
+      );
+
+      return;
+    }
+
+    if (erro.name === "HttpError") {
+
+      renderizarEstado(
+        "erro",
+        `Não foi possível carregar as tarefas. O servidor respondeu com ${erro.message}.`
+      );
+
+      return;
+    }
+
+    renderizarEstado(
+      "erro",
+      "Ocorreu um erro inesperado ao carregar as tarefas."
+    );
+
+    return;
   }
+
+  if (tarefas.length === 0) {
+    renderizarEstado("vazio");
+    return;
+  }
+
+  renderizarEstado("sucesso", tarefas);
 }
 
 iniciarAplicacao();
