@@ -1,353 +1,442 @@
-/* ==========================================================================
-   1. SISTEMA DE DESIGN MÍNIMO & PROPRIEDADES PERSONALIZADAS (:root)
-   ========================================================================== */
+/* =========================================================
+   SISTEMA DE DESIGN
+   ========================================================= */
+
 :root {
-  /* Cores de Superfície, Texto e Borda */
-  --bg-page: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-alt: #f1f5f9;
-  --color-text-main: #0f172a;
-  --color-text-muted: #334155; /* Contraste > 4.5:1 garantido */
-  --color-border: #cbd5e1;
-  --color-focus: #0284c7;
+  /* Cores de superfície, texto e borda */
+  --cor-fundo: #f4f6f8;
+  --cor-superficie: #ffffff;
+  --cor-texto: #1f2937;
+  --cor-texto-secundario: #4b5563;
+  --cor-borda: #d1d5db;
 
-  /* Cores por Status (Valores em :root, sem repetição em regras individuais) */
-  --status-afazer: #2563eb;     /* Azul */
-  --status-andamento: #d97706;  /* Âmbar/Laranja */
-  --status-revisao: #7c3aed;    /* Roxo */
-  --status-concluida: #16a34a;  /* Verde */
+  /* Uma cor para cada status */
+  --cor-a-fazer: #2563eb;
+  --cor-em-andamento: #d97706;
+  --cor-em-revisao: #7c3aed;
+  --cor-concluida: #16a34a;
 
-  /* Cores de Prioridade (Atendem contraste de no mínimo 4.5:1) */
-  --prio-alta-bg: #fee2e2;
-  --prio-alta-text: #991b1b;
-  --prio-media-bg: #fef3c7;
-  --prio-media-text: #92400e;
-  --prio-baixa-bg: #e0f2fe;
-  --prio-baixa-text: #075985;
+  /* Prioridades */
+  --cor-prioridade-alta: #b91c1c;
+  --cor-prioridade-media: #a16207;
+  --cor-prioridade-baixa: #166534;
 
-  /* Escala de Espaçamento com 4 Níveis em Unidades Relativas */
-  --space-sm: 0.5rem;   /* 8px */
-  --space-md: 1rem;     /* 16px */
-  --space-lg: 1.5rem;   /* 24px */
-  --space-xl: 2rem;     /* 32px */
+  /* Escala de espaçamento */
+  --espaco-1: 0.5rem;
+  --espaco-2: 1rem;
+  --espaco-3: 1.5rem;
+  --espaco-4: 2rem;
 
-  /* Raio de Canto */
-  --radius-sm: 0.375rem; /* 6px */
-  --radius-md: 0.5rem;   /* 8px */
-  --radius-lg: 0.75rem;  /* 12px */
-
-  /* Tipografia Fluida com clamp() combinando rem e vw */
-  --font-size-title: clamp(1.25rem, 1rem + 1.2vw, 1.875rem);
-  --font-size-subtitle: clamp(1.1rem, 0.95rem + 0.6vw, 1.35rem);
+  /* Outros */
+  --raio: 0.75rem;
+  --largura-conteudo: 120rem;
 }
 
-/* ==========================================================================
-   2. RESET E REGRAS GERAIS
-   ========================================================================== */
-/* Box-sizing universal */
+
+/* =========================================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+html {
+  font-size: 100%;
+}
+
 body {
   margin: 0;
-  padding: var(--space-md);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 1rem; /* Unidade relativa (rem) que respeita tamanho do navegador */
+  min-width: 0;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
-  color: var(--color-text-main);
-  background-color: var(--bg-page);
 }
 
-/* Foco visível acessível para navegação por teclado (Tab) */
-:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-}
-
-/* Evita barra de rolagem por estouro de mídias */
-img, svg {
+img,
+svg,
+video {
   max-width: 100%;
-  height: auto;
 }
 
-/* ==========================================================================
-   3. CABEÇALHO DA APLICAÇÃO
-   ========================================================================== */
+button,
+input {
+  font: inherit;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
 header {
-  margin-bottom: var(--space-lg);
-  text-align: center;
+  background-color: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: var(--espaco-3) var(--espaco-2);
 }
 
 header h1 {
-  font-size: var(--font-size-title);
+  max-width: var(--largura-conteudo);
+  margin: 0 auto;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
+
+main {
+  width: min(100% - 2rem, var(--largura-conteudo));
+  margin: 0 auto;
+  padding: var(--espaco-3) 0;
+}
+
+main > section {
+  min-width: 0;
+}
+
+h2 {
   margin: 0;
-  color: var(--color-text-main);
+  font-size: 1.5rem;
 }
 
-/* ==========================================================================
-   4. SEÇÃO DE BUSCA E FILTROS (MOBILE-FIRST)
-   ========================================================================== */
-section[aria-labelledby="titulo-filtros"] {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  margin-bottom: var(--space-lg);
+h3 {
+  margin: 0;
+  font-size: 1.25rem;
 }
 
-#titulo-filtros {
-  font-size: var(--font-size-subtitle);
-  margin-top: 0;
-  margin-bottom: var(--space-md);
-  color: var(--color-text-main);
+h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+
+/* =========================================================
+   BUSCA E FILTROS
+   ========================================================= */
+
+main > section:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  padding: var(--espaco-3);
+  margin-bottom: var(--espaco-3);
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--espaco-2);
+  min-width: 0;
 }
 
-form p {
+form > p {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-/* Campo de busca com alvo de clique/toque de no mínimo 40px (> 24px) */
-input[type="search"] {
-  min-height: 2.5rem;
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  width: 100%;
-  background-color: var(--bg-surface);
-  color: var(--color-text-main);
-}
-
-fieldset {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-md);
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-legend {
-  padding: 0 var(--space-sm);
-  font-weight: 600;
-  color: var(--color-text-main);
-}
-
-fieldset p {
-  flex-direction: row;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-/* Alvos de toque acessíveis para radio buttons e labels */
-input[type="radio"] {
-  min-width: 1.5rem;  /* 24px */
-  min-height: 1.5rem; /* 24px */
-  margin: 0;
-  cursor: pointer;
 }
 
 label {
-  cursor: pointer;
-  min-height: 1.5rem;
-  display: inline-flex;
+  color: var(--cor-texto);
+}
+
+input[type="search"] {
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  margin-top: var(--espaco-1);
+  padding: 0.5rem 0.75rem;
+  color: var(--cor-texto);
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.5rem;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+  margin: 0;
+  padding: var(--espaco-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.5rem;
+}
+
+fieldset p {
+  display: flex;
   align-items: center;
+  gap: var(--espaco-1);
+  min-height: 1.5rem;
+  margin: 0;
 }
 
-button[type="submit"] {
-  min-height: 2.75rem; /* 44px - alvo confortável */
-  padding: 0 var(--space-lg);
-  background-color: var(--color-focus);
+fieldset input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}
+
+legend {
+  padding: 0 var(--espaco-1);
+  font-weight: 700;
+}
+
+button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
   color: #ffffff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-weight: 600;
+  background-color: var(--cor-texto);
+  border: 2px solid var(--cor-texto);
+  border-radius: 0.5rem;
   cursor: pointer;
-  align-self: flex-start;
-  transition: background-color 0.2s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #0369a1;
+button:hover {
+  opacity: 0.9;
 }
 
-/* ==========================================================================
-   5. QUADRO DE TAREFAS (VISÃO DE QUADRO EM GRID)
-   ========================================================================== */
+
+/* =========================================================
+   FOCO VISÍVEL
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   QUADRO KANBAN
+   ========================================================= */
+
 #titulo-quadro {
-  font-size: var(--font-size-subtitle);
-  margin-top: 0;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--espaco-2);
+}
+
+main > section:last-child {
+  min-width: 0;
 }
 
 /*
-  Grid Mobile-First:
-  Inicia com 1 coluna em telas estreitas (320px) garantindo 0 rolagem horizontal.
+   Mobile-first:
+   Em telas estreitas, as colunas ficam empilhadas.
 */
-section[aria-labelledby="titulo-quadro"] {
+main > section:last-child > section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--espaco-2);
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+
+/* =========================================================
+   COLUNAS E TÍTULOS DE STATUS
+   ========================================================= */
+
+main > section:last-child {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espaco-2);
 }
 
-#titulo-quadro {
-  grid-column: 1 / -1;
+main > section:last-child > section > h3 {
+  flex: 0 0 auto;
+  padding-bottom: var(--espaco-1);
+  border-bottom: 3px solid;
 }
 
-/* ==========================================================================
-   6. COLUNAS DE STATUS (FLEXBOX EM DIREÇÃO VERTICAL)
-   ========================================================================== */
-section[aria-labelledby="status-afazer-heading"],
-section[aria-labelledby="status-andamento-heading"],
-section[aria-labelledby="status-revisao-heading"],
-section[aria-labelledby="status-concluida-heading"] {
-  background-color: var(--bg-surface-alt);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
+
+/* Cada status recebe sua própria variável */
+
+#status-afazer-heading {
+  color: var(--cor-a-fazer);
+  border-color: var(--cor-a-fazer);
+}
+
+#status-andamento-heading {
+  color: var(--cor-em-andamento);
+  border-color: var(--cor-em-andamento);
+}
+
+#status-revisao-heading {
+  color: var(--cor-em-revisao);
+  border-color: var(--cor-em-revisao);
+}
+
+#status-concluida-heading {
+  color: var(--cor-concluida);
+  border-color: var(--cor-concluida);
+}
+
+
+/* =========================================================
+   LISTA DE TAREFAS
+   ========================================================= */
+
+main > section:last-child ul {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  border-top: 4px solid var(--color-border);
-  min-width: 0; /* CRÍTICO: Previne estouro das colunas por filhos com truncamento */
-}
-
-/* A cor de cada status vem de propriedade personalizada em :root */
-section[aria-labelledby="status-afazer-heading"]    { border-top-color: var(--status-afazer); }
-section[aria-labelledby="status-andamento-heading"] { border-top-color: var(--status-andamento); }
-section[aria-labelledby="status-revisao-heading"]   { border-top-color: var(--status-revisao); }
-section[aria-labelledby="status-concluida-heading"] { border-top-color: var(--status-concluida); }
-
-section[aria-labelledby^="status-"] h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-text-main);
-}
-
-/* Lista de Cartões */
-section[aria-labelledby^="status-"] ul {
-  list-style: none;
+  gap: var(--espaco-2);
+  min-width: 0;
+  margin: var(--espaco-2) 0 0;
   padding: 0;
-  margin: 0;
+  list-style: none;
+}
+
+main > section:last-child li {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+  min-width: 0;
 }
 
-section[aria-labelledby^="status-"] li {
-  margin: 0;
-  min-width: 0; /* Garante propagação do truncamento */
-}
 
-/* ==========================================================================
-   7. CARTÕES DE TAREFA (ESTRUTURA EM FLEXBOX)
-   ========================================================================== */
+/* =========================================================
+   CARTÃO DE TAREFA
+   ========================================================= */
+
 article {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  min-width: 0; /* CRÍTICO: Permite ao flex child encolher para aplicar ellipsis */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  gap: var(--espaco-1);
+  width: 100%;
+  min-width: 0;
+  min-height: 13rem;
+  padding: var(--espaco-2);
+
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.625rem;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
-/* Título Longo Truncado com Reticências */
 article h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text-main);
-
-  /* Truncamento Efetivo */
-  white-space: nowrap;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0;
-  width: 100%;
+  white-space: nowrap;
+  line-height: 1.4;
 }
+
+
+/* Informações da tarefa */
 
 article p {
+  min-width: 0;
   margin: 0;
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: var(--cor-texto-secundario);
+  overflow-wrap: anywhere;
 }
 
-/* Organização Flexbox: Prazo/Prioridade posicionados na base do cartão */
-article p:last-child {
+article p strong {
+  color: var(--cor-texto);
+}
+
+
+/* Prazo fica na base do cartão */
+
+article p:nth-last-child(2) {
   margin-top: auto;
 }
 
-/* ==========================================================================
-   8. PONTOS DE QUEBRA RESPONSIVOS (MEDIA QUERIES MIN-WIDTH)
-   ========================================================================== */
+
+/* Prioridade */
+
+article p:last-child {
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BREAKPOINT 1
+   ========================================================= */
 
 /*
-  PONTO DE QUEBRA 1: 640px (Tablets em modo retrato / Telas intermediárias)
-  JUSTIFICATIVA: Em telas abaixo de 640px, a organização do formulário em linha e 
-  as colunas do quadro ocupando mais de uma coluna comprimem o layout. A partir
-  de 640px, há largura suficiente para dividir o formulário em 2 colunas e transicionar
-  o quadro de tarefas para 2 colunas x 2 linhas com espaçamento confortável.
+   A partir de 600px:
+   duas colunas passam a aproveitar melhor a largura disponível.
+   No mobile, quatro colunas empilhadas ocupam muita altura.
 */
-@media (min-width: 640px) {
+@media (min-width: 600px) {
+  main > section:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   form {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
 
-  form > p:first-child,
-  button[type="submit"] {
+  form > p:first-child {
     grid-column: 1 / -1;
   }
 
-  section[aria-labelledby="titulo-quadro"] {
-    grid-template-columns: repeat(2, 1fr);
+  form > p:last-child {
+    grid-column: 1 / -1;
   }
 }
 
+
+/* =========================================================
+   BREAKPOINT 2
+   ========================================================= */
+
 /*
-  PONTO DE QUEBRA 2: 1024px (Desktops / Laptops)
-  JUSTIFICATIVA: Em resoluções abaixo de 1024px, a divisão em 4 colunas horizontais
-  resultaria em colunas com menos de 200px de largura, espremendo excessivamente
-  os textos dos cartões. A partir de 1024px, a tela acomoda perfeitamente todas
-  as 4 colunas de status lado a lado.
+   A partir de 1000px:
+   quatro colunas passam a caber lado a lado sem deixar
+   cada cartão estreito demais.
 */
-@media (min-width: 1024px) {
-  body {
-    padding: var(--space-xl);
-    max-width: 1920px;
-    margin: 0 auto;
+@media (min-width: 1000px) {
+  main > section:last-child {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   form {
-    grid-template-columns: 2fr 1.5fr 1.5fr auto;
-    align-items: end;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
-  form > p:first-child,
-  button[type="submit"] {
-    grid-column: auto;
+  form > p:first-child {
+    grid-column: 1 / -1;
   }
 
-  section[aria-labelledby="titulo-quadro"] {
-    grid-template-columns: repeat(4, 1fr);
+  form > p:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* =========================================================
+   BREAKPOINT 3
+   ========================================================= */
+
+/*
+   A partir de 1400px:
+   aumenta-se o espaçamento geral para aproveitar melhor
+   telas grandes sem criar elementos excessivamente largos.
+*/
+@media (min-width: 1400px) {
+  main {
+    padding-top: var(--espaco-4);
+    padding-bottom: var(--espaco-4);
+  }
+
+  main > section:last-child {
+    gap: var(--espaco-3);
+  }
+
+  main > section:last-child > section {
+    padding: var(--espaco-3);
   }
 }
