@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="styles.css">
-
   <title>Gerenciador de Tarefas Acadêmicas - Quadro de Projetos</title>
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -18,186 +17,213 @@
 
   <main>
 
-```
-<div
-  id="status-aplicacao"
-  role="status"
-  aria-live="polite"
-></div>
+    <!-- Região utilizada para informar os estados da aplicação -->
+    <div
+      id="status-aplicacao"
+      role="status"
+      aria-live="polite"
+    ></div>
 
-<section aria-labelledby="titulo-filtros">
-  <h2 id="titulo-filtros">Busca e Filtros</h2>
+    <!-- Busca e filtros -->
+    <section
+      id="secao-filtros"
+      aria-labelledby="titulo-filtros"
+    >
 
-  <form action="#" method="get">
+      <h2 id="titulo-filtros">Busca e Filtros</h2>
 
-    <p>
-      <label for="campo-busca">Buscar por título da tarefa:</label>
-      <input
-        type="search"
-        id="campo-busca"
-        name="busca"
-      >
-    </p>
+      <form>
 
-    <fieldset>
-      <legend>Filtrar por Status</legend>
+        <label for="campo-busca">
+          Buscar por título da tarefa:
+        </label>
 
-      <p>
         <input
-          type="radio"
-          id="status-todos"
-          name="filtro-status"
-          value="todos"
-          checked
+          type="search"
+          id="campo-busca"
+          name="busca"
         >
-        <label for="status-todos">Todos</label>
-      </p>
 
-      <p>
-        <input
-          type="radio"
-          id="status-a-fazer"
-          name="filtro-status"
-          value="a-fazer"
-        >
-        <label for="status-a-fazer">A Fazer</label>
-      </p>
+        <div class="filtros">
 
-      <p>
-        <input
-          type="radio"
-          id="status-em-andamento"
-          name="filtro-status"
-          value="em-andamento"
-        >
-        <label for="status-em-andamento">Em Andamento</label>
-      </p>
+          <!-- Filtro por status -->
+          <fieldset>
+            <legend>Filtrar por Status</legend>
 
-      <p>
-        <input
-          type="radio"
-          id="status-em-revisao"
-          name="filtro-status"
-          value="em-revisao"
-        >
-        <label for="status-em-revisao">Em Revisão</label>
-      </p>
+            <label>
+              <input
+                type="radio"
+                id="status-todos"
+                name="status"
+                value="todos"
+                checked
+              >
+              Todos
+            </label>
 
-      <p>
-        <input
-          type="radio"
-          id="status-concluida"
-          name="filtro-status"
-          value="concluida"
-        >
-        <label for="status-concluida">Concluída</label>
-      </p>
-    </fieldset>
+            <label>
+              <input
+                type="radio"
+                id="status-a-fazer"
+                name="status"
+                value="a-fazer"
+              >
+              A Fazer
+            </label>
 
-    <fieldset>
-      <legend>Filtrar por Prioridade</legend>
+            <label>
+              <input
+                type="radio"
+                id="status-em-andamento"
+                name="status"
+                value="em-andamento"
+              >
+              Em Andamento
+            </label>
 
-      <p>
-        <input
-          type="radio"
-          id="prio-todas"
-          name="filtro-prioridade"
-          value="todas"
-          checked
-        >
-        <label for="prio-todas">Todas</label>
-      </p>
+            <label>
+              <input
+                type="radio"
+                id="status-em-revisao"
+                name="status"
+                value="em-revisao"
+              >
+              Em Revisão
+            </label>
 
-      <p>
-        <input
-          type="radio"
-          id="prio-baixa"
-          name="filtro-prioridade"
-          value="baixa"
-        >
-        <label for="prio-baixa">Baixa</label>
-      </p>
+            <label>
+              <input
+                type="radio"
+                id="status-concluida"
+                name="status"
+                value="concluida"
+              >
+              Concluída
+            </label>
 
-      <p>
-        <input
-          type="radio"
-          id="prio-media"
-          name="filtro-prioridade"
-          value="media"
-        >
-        <label for="prio-media">Média</label>
-      </p>
+          </fieldset>
 
-      <p>
-        <input
-          type="radio"
-          id="prio-alta"
-          name="filtro-prioridade"
-          value="alta"
-        >
-        <label for="prio-alta">Alta</label>
-      </p>
-    </fieldset>
+          <!-- Filtro por prioridade -->
+          <fieldset>
+            <legend>Filtrar por Prioridade</legend>
 
-    <p>
-      <button type="submit">Aplicar Filtros</button>
-    </p>
+            <label>
+              <input
+                type="radio"
+                id="prio-todas"
+                name="prioridade"
+                value="todas"
+                checked
+              >
+              Todas
+            </label>
 
-  </form>
-</section>
+            <label>
+              <input
+                type="radio"
+                id="prio-baixa"
+                name="prioridade"
+                value="baixa"
+              >
+              Baixa
+            </label>
 
+            <label>
+              <input
+                type="radio"
+                id="prio-media"
+                name="prioridade"
+                value="media"
+              >
+              Média
+            </label>
 
-<section aria-labelledby="titulo-quadro">
+            <label>
+              <input
+                type="radio"
+                id="prio-alta"
+                name="prioridade"
+                value="alta"
+              >
+              Alta
+            </label>
 
-  <h2 id="titulo-quadro">Quadro de Tarefas</h2>
+          </fieldset>
 
+        </div>
 
-  <section aria-labelledby="status-afazer-heading">
+        <button type="submit">
+          Aplicar Filtros
+        </button>
 
-    <h3 id="status-afazer-heading">A Fazer</h3>
+      </form>
 
-    <ul>
-    </ul>
+    </section>
 
-  </section>
+    <!-- Quadro de tarefas -->
+    <section
+      id="secao-quadro"
+      aria-labelledby="titulo-quadro"
+    >
 
+      <h2 id="titulo-quadro">Quadro de Tarefas</h2>
 
-  <section aria-labelledby="status-andamento-heading">
+      <div class="quadro">
 
-    <h3 id="status-andamento-heading">Em Andamento</h3>
+        <!-- A Fazer -->
+        <section aria-labelledby="status-afazer-heading">
 
-    <ul>
-    </ul>
+          <h3 id="status-afazer-heading">
+            A Fazer
+          </h3>
 
-  </section>
+          <ul></ul>
 
+        </section>
 
-  <section aria-labelledby="status-revisao-heading">
+        <!-- Em Andamento -->
+        <section aria-labelledby="status-andamento-heading">
 
-    <h3 id="status-revisao-heading">Em Revisão</h3>
+          <h3 id="status-andamento-heading">
+            Em Andamento
+          </h3>
 
-    <ul>
-    </ul>
+          <ul></ul>
 
-  </section>
+        </section>
 
+        <!-- Em Revisão -->
+        <section aria-labelledby="status-revisao-heading">
 
-  <section aria-labelledby="status-concluida-heading">
+          <h3 id="status-revisao-heading">
+            Em Revisão
+          </h3>
 
-    <h3 id="status-concluida-heading">Concluída</h3>
+          <ul></ul>
 
-    <ul>
-    </ul>
+        </section>
 
-  </section>
+        <!-- Concluída -->
+        <section aria-labelledby="status-concluida-heading">
 
-</section>
-```
+          <h3 id="status-concluida-heading">
+            Concluída
+          </h3>
+
+          <ul></ul>
+
+        </section>
+
+      </div>
+
+    </section>
 
   </main>
 
-  <script type="module" src="js/main.js"></script>
+  <script
+    type="module"
+    src="js/main.js"
+  ></script>
 
 </body>
 </html>
-
