@@ -10,10 +10,6 @@
   --cor-revisao: #7c3aed;
   --cor-concluida: #16a34a;
 
-  --cor-prioridade-baixa: #16a34a;
-  --cor-prioridade-media: #d97706;
-  --cor-prioridade-alta: #dc2626;
-
   --espaco-1: 0.25rem;
   --espaco-2: 0.5rem;
   --espaco-3: 0.75rem;
@@ -25,8 +21,6 @@
   --raio: 0.75rem;
   --largura-maxima: 1400px;
 }
-
-/* Reset básico */
 
 * {
   box-sizing: border-box;
@@ -45,7 +39,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -63,7 +58,7 @@ header h1 {
   font-size: clamp(1.5rem, 5vw, 2.25rem);
 }
 
-/* Conteúdo principal */
+/* Conteúdo */
 
 main {
   width: min(100% - 2rem, var(--largura-maxima));
@@ -71,7 +66,7 @@ main {
   padding: var(--espaco-5) 0;
 }
 
-/* Estado da aplicação */
+/* Mensagens */
 
 #status-aplicacao {
   margin-bottom: var(--espaco-4);
@@ -84,7 +79,26 @@ main {
   display: none;
 }
 
-/* Busca e filtros */
+.estado-carregando {
+  background-color: #e5e7eb;
+}
+
+.estado-sucesso {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.estado-vazio {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.estado-erro {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Filtros */
 
 #secao-filtros {
   margin-bottom: var(--espaco-6);
@@ -96,13 +110,14 @@ main {
   margin-bottom: var(--espaco-3);
 }
 
-#secao-filtros form {
+#form-filtros {
   display: flex;
   flex-direction: column;
   gap: var(--espaco-4);
 }
 
-#campo-busca {
+#campo-busca,
+#campo-ordenacao {
   width: 100%;
   min-width: 0;
   padding: 0.7rem 0.8rem;
@@ -146,7 +161,25 @@ fieldset input {
   margin-right: var(--espaco-2);
 }
 
-/* Botão */
+/* Ordenação */
+
+.ordenacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.ordenacao label {
+  font-weight: 600;
+}
+
+/* Botões */
+
+.acoes-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-3);
+}
 
 button {
   width: fit-content;
@@ -162,17 +195,21 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Foco acessível */
+#botao-limpar {
+  background-color: var(--cor-superficie);
+  color: var(--cor-texto);
+}
+
+/* Foco */
 
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
 }
 
-/* =========================================
-   QUADRO
-   ========================================= */
+/* Quadro */
 
 .quadro {
   display: grid;
@@ -180,25 +217,25 @@ input:focus-visible {
   gap: var(--espaco-4);
 }
 
-/* Colunas */
-
 .quadro > section {
   min-width: 0;
   display: flex;
   flex-direction: column;
 
   padding: var(--espaco-5);
+
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio);
+
   background-color: var(--cor-superficie);
 }
-
-/* Títulos das colunas */
 
 .quadro h3 {
   margin: 0 0 var(--espaco-4);
   padding-bottom: var(--espaco-2);
+
   border-bottom: 3px solid;
+
   font-size: 1.25rem;
 }
 
@@ -222,7 +259,7 @@ input:focus-visible {
   border-color: var(--cor-concluida);
 }
 
-/* Lista de tarefas */
+/* Lista */
 
 .quadro ul {
   display: flex;
@@ -243,6 +280,7 @@ input:focus-visible {
 
 .quadro article {
   min-width: 0;
+
   padding: var(--espaco-4);
 
   border: 1px solid var(--cor-borda);
@@ -276,32 +314,7 @@ input:focus-visible {
   color: var(--cor-texto);
 }
 
-/* =========================================
-   ESTADOS
-   ========================================= */
-
-.estado-carregando {
-  background-color: #e5e7eb;
-}
-
-.estado-erro {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.estado-vazio {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.estado-sucesso {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-/* =========================================
-   RESPONSIVIDADE
-   ========================================= */
+/* Responsividade */
 
 @media (min-width: 600px) {
 
@@ -319,6 +332,10 @@ input:focus-visible {
 
   .quadro {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ordenacao {
+    max-width: 400px;
   }
 
 }
