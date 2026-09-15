@@ -1,32 +1,67 @@
-import { renderizarTarefas } from "./renderizacao.js";
+export function renderizarEstado(estado, dados = null) {
+  const regiaoStatus = document.getElementById("status-aplicacao");
+  const secaoFiltros = document.getElementById("secao-filtros");
+  const secaoQuadro = document.getElementById("secao-quadro");
 
-export function renderizarEstado(estado, dados = []) {
-  const status = document.querySelector("#status-aplicacao");
-
-  const quadro = document.querySelector("#titulo-quadro")
-    ?.parentElement;
-
-  if (!status) {
+  if (!regiaoStatus) {
     return;
   }
 
+  regiaoStatus.className = "";
+
   switch (estado) {
+
     case "carregando":
-      status.textContent = "Carregando tarefas...";
+      esconder(secaoFiltros);
+      esconder(secaoQuadro);
+
+      regiaoStatus.classList.add("estado-carregando");
+      regiaoStatus.textContent = "Carregando tarefas...";
       break;
 
     case "sucesso":
-      status.textContent = `${dados.length} tarefas carregadas.`;
-      renderizarTarefas(dados);
+      mostrar(secaoFiltros);
+      mostrar(secaoQuadro);
+
+      regiaoStatus.classList.add("estado-sucesso");
+      regiaoStatus.textContent = dados;
       break;
 
     case "vazio":
-      status.textContent = "Não há tarefas cadastradas.";
-      renderizarTarefas([]);
+      esconder(secaoFiltros);
+      esconder(secaoQuadro);
+
+      regiaoStatus.classList.add("estado-vazio");
+      regiaoStatus.textContent =
+        "Não há tarefas cadastradas na fonte de dados.";
       break;
 
     case "erro":
-      status.textContent = dados;
+      esconder(secaoFiltros);
+      esconder(secaoQuadro);
+
+      regiaoStatus.classList.add("estado-erro");
+      regiaoStatus.textContent = dados;
       break;
+
+    default:
+      esconder(secaoFiltros);
+      esconder(secaoQuadro);
+
+      regiaoStatus.classList.add("estado-erro");
+      regiaoStatus.textContent =
+        "Estado desconhecido da aplicação.";
+  }
+}
+
+function esconder(elemento) {
+  if (elemento) {
+    elemento.hidden = true;
+  }
+}
+
+function mostrar(elemento) {
+  if (elemento) {
+    elemento.hidden = false;
   }
 }
