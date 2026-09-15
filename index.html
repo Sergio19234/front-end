@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
 
   <main>
 
-    <!-- Região utilizada para informar os estados da aplicação -->
+    <!-- Região de feedback da aplicação -->
     <div
       id="status-aplicacao"
       role="status"
@@ -32,7 +33,7 @@
 
       <h2 id="titulo-filtros">Busca e Filtros</h2>
 
-      <form>
+      <form id="form-filtros">
 
         <label for="campo-busca">
           Buscar por título da tarefa:
@@ -42,6 +43,7 @@
           type="search"
           id="campo-busca"
           name="busca"
+          autocomplete="off"
         >
 
         <div class="filtros">
@@ -152,21 +154,59 @@
 
         </div>
 
-        <button type="submit">
-          Aplicar Filtros
-        </button>
+        <!-- Ordenação -->
+        <div class="ordenacao">
+
+          <label for="campo-ordenacao">
+            Ordenar por prazo:
+          </label>
+
+          <select id="campo-ordenacao" name="ordenacao">
+
+            <option value="nenhuma">
+              Sem ordenação
+            </option>
+
+            <option value="prazo-crescente">
+              Prazo: mais próximo primeiro
+            </option>
+
+            <option value="prazo-decrescente">
+              Prazo: mais distante primeiro
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="acoes-filtros">
+
+          <button type="submit">
+            Aplicar Filtros
+          </button>
+
+          <button
+            type="button"
+            id="botao-limpar"
+          >
+            Limpar filtros
+          </button>
+
+        </div>
 
       </form>
 
     </section>
 
-    <!-- Quadro de tarefas -->
+    <!-- Quadro -->
     <section
       id="secao-quadro"
       aria-labelledby="titulo-quadro"
     >
 
-      <h2 id="titulo-quadro">Quadro de Tarefas</h2>
+      <h2 id="titulo-quadro">
+        Quadro de Tarefas
+      </h2>
 
       <div class="quadro">
 
@@ -226,4 +266,5 @@
   ></script>
 
 </body>
+
 </html>
