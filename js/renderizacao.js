@@ -5,13 +5,6 @@ const statusMap = {
   "concluida": "status-concluida-heading"
 };
 
-const nomesStatus = {
-  "a-fazer": "A Fazer",
-  "em-andamento": "Em Andamento",
-  "em-revisao": "Em Revisão",
-  "concluida": "Concluída"
-};
-
 const nomesPrioridade = {
   "baixa": "Baixa",
   "media": "Média",
@@ -23,7 +16,6 @@ export function renderizarTarefas(tarefas) {
 
   tarefas.forEach(tarefa => {
     const cartao = criarCartao(tarefa);
-
     const coluna = encontrarColuna(tarefa.status);
 
     if (coluna) {
@@ -99,6 +91,7 @@ function criarCartao(tarefa) {
   prazoStrong.textContent = "Prazo:";
 
   const data = document.createElement("time");
+
   data.dateTime = tarefa.prazo;
   data.textContent = formatarData(tarefa.prazo);
 
@@ -112,6 +105,7 @@ function criarCartao(tarefa) {
   prioridadeStrong.textContent = "Prioridade:";
 
   prioridade.appendChild(prioridadeStrong);
+
   prioridade.appendChild(
     document.createTextNode(
       ` ${nomesPrioridade[tarefa.prioridade] || tarefa.prioridade}`
